@@ -1,20 +1,17 @@
+#!/usr/bin/env bash
 pipeline {
   agent any
   stages {
     stage ('Lint HTML ') {
       steps {
-        #!/bin/bash
         sh 'tidy -qe --doctype strict *.html'
       }
     }
     stage ('Quit if Lint HTML results in errors ') {
       steps {
-        bash '''#!/bin/bash
-                if [[ $(ls -A) ]]
-                then break
-                else continue
-        	fi
-        '''
+        sh 'if [[ $(ls -A) ]]'
+        sh 'then break'
+        sh 'else continue'
       }
     }
     stage ('Upload to AWS ') {
