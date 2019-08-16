@@ -13,7 +13,7 @@ pipeline {
           then
             exit
           else
-          fi
+         # fi
         '''
       }  
     }
