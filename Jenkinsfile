@@ -10,7 +10,7 @@ pipeline {
       steps {
         sh '''
           if [[ $(ls -A) ]]; then
-            exit ${result}"
+            exit "${result}"
           else
           fi
         '''
