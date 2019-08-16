@@ -1,22 +1,19 @@
 pipeline {
   agent any
   stages {
-    stage ('Lint HTML ') {
-      steps {
-        sh 'tidy -qe --doctype strict *.html'
-      }
-    }
-    stage ('Quit if Lint HTML results in errors ') {
+    stage ('Exit code 0 if Lint HTML succeeds otherwise exit code not 0 ') {
       steps {
         sh '''
-          if [[ $(ls -A) ]]; then
-            exit "${result}"
-          else
-          fi
+          tidy -qe --doctype strict *.html 2> /dev/null
+            if [ $? != 0 ]
+              then
+                echo "there were HTML errors" >&2
+              if [ $? -eq 0 ]
+              fi
         '''
-      }  
-    }
-    stage ('Upload to AWS ') {
+      }
+    }  
+    stage ('Upload to AWS if Lint HTML succeeds') {
       steps {
         withAWS(credentials: 'aws-static') {
           s3Upload(file:'index.html', bucket:'uniquenameproj4new', path:'index.html')
