@@ -6,6 +6,14 @@ pipeline {
         sh 'tidy -qe -access 3 --doctype strict *.html'
       }
     }       
+    stage ('Quit if Lint HTML results in errors ') {
+      steps { 
+        sh '''
+          if [[ $(ls -A) ]]; then
+            exit
+        '''
+      }  
+    }
     stage ('Upload to AWS ') { 
       steps {
         withAWS(credentials: 'aws-static') {
