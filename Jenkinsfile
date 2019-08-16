@@ -6,15 +6,17 @@ pipeline {
       steps {
         sh 'tidy -qe --doctype strict *.html'
       }
-    }       
-    stage ('Quit if Lint HTML results in errors ') {
-      steps { 
-        sh 'if [[ $(ls -A) ]]; then'
-        sh 'exit 0;'
-        sh 'fi;'
-      }  
     }
-    stage ('Upload to AWS ') { 
+    stage ('Quit if Lint HTML results in errors ') {
+      steps {
+        sh 'if [[ $(ls -A) ]] ; then '
+        sh   'break ; '
+        sh 'else ; '
+        sh   'continue ; '
+        sh 'fi ; '
+      }
+    }
+    stage ('Upload to AWS ') {
       steps {
         withAWS(credentials: 'aws-static') {
           s3Upload(file:'index.html', bucket:'uniquenameproj4new', path:'index.html')
