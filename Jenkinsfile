@@ -9,8 +9,11 @@ pipeline {
     stage ('Quit if Lint HTML results in errors ') {
       steps { 
         sh '''
-          if [[ $(ls -A) ]]; then
+          if [[ $(ls -A) ]]
+          then
             exit
+          else
+          fi
         '''
       }  
     }
