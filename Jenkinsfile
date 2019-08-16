@@ -3,17 +3,14 @@ pipeline {
   stages {
     stage ('Lint HTML ') {
       steps {
-        sh 'tidy -qe -access 3 --doctype strict *.html'
+        sh 'tidy -qe --doctype strict *.html'
       }
     }       
     stage ('Quit if Lint HTML results in errors ') {
       steps { 
-        sh '''
-          if [[ $(ls -A) ]]; then
-            exit
-         # else
-         # fi
-        '''
+        sh 'if [[ $(ls -A) ]]; then'
+        sh 'exit'
+        sh 'fi'
       }  
     }
     stage ('Upload to AWS ') { 
