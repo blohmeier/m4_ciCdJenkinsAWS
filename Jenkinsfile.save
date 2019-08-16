@@ -1,6 +1,8 @@
 pipeline {
   agent any
-  stages {
+  options {
+          withAWS(credentials: 'aws-static')
+  }
     stage ('Lint HTML ') {
       steps {
         sh 'tidy -q -e --doctype strict *.html'
@@ -8,9 +10,6 @@ pipeline {
     }       
     stage ('Upload to AWS ') { 
       steps {
-        options {
-          withAWS(credentials: 'aws-static')
-        }
         s3Upload(file:'index.html', bucket:'uniquenameproj4new', path:'index.html')
       }
     }
