@@ -7,8 +7,10 @@ pipeline {
           tidy -qe --doctype strict *.html 2> /dev/null
             if [ $? != 0 ]
               then
-                echo "there were HTML errors" >&2
-              if [ $? -eq 0 ]
+              echo "there were HTML errors" >&2
+              exit 0
+              else
+              true
               fi
         '''
       }
