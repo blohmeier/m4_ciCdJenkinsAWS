@@ -17,7 +17,7 @@ pipeline {
     }  
     stage ('Upload to AWS if Lint HTML succeeds') {
       steps {
-        withAWS(credentials: 'aws-static') {
+        withAWS(credentials: 'aws-staticNew') {
           s3Upload(file:'index.html', bucket:'uniquenameproj4new', path:'index.html')
         }
       }
