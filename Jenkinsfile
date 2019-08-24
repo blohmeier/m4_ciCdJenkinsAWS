@@ -8,11 +8,11 @@ pipeline {
             if [ $? != 0 ]
               then
                 echo "there were HTML errors" >&2
-            else if [ $? -eq 0 ]
-              then
-		# no HTML errors
-	        exit 0
             else
+		# if [ $? -eq 0 ]
+                #then
+		#echo "no HTML errors" >&2
+                #else
             true
             fi
         '''
