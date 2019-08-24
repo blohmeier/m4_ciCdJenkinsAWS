@@ -5,10 +5,13 @@ pipeline {
       steps {
         sh '''
           tidy -qe --doctype strict *.html 2> /dev/null
-            if [ $? -eq 0 ]
-            then
-	      exit 0
-	    else  
+            if [ $? != 0 ]
+              then
+                echo "there were HTML errors" >&2
+              if [ $? -eq 0 ]
+              echo "there were HTML errors" >&2
+              exit 0
+              else
               true
               fi
         '''
@@ -16,7 +19,7 @@ pipeline {
     }  
     stage ('Upload to AWS if Lint HTML succeeds') {
       steps {
-        withAWS(credentials: 'aws-static') {
+        withAWS(credentials: 'aws-staticNew') {
           s3Upload(file:'index.html', bucket:'uniquenameproj4new', path:'index.html')
         }
       }
