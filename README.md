@@ -2,7 +2,7 @@
 
 This project included code to: create and run an instance on AWS, configure Jenkins, and create a pipeline to deploy a static website on S3.
 
-The project submission required submitting one zip file including:
+The project submission required submitting one zip file (added here as mod4project-blohmeier.zip) including:
 * seven screenshots
 * one text file containing a link to the project GitHub repo.
 
